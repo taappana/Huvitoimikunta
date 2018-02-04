@@ -10,6 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+
 public class Huvitoimikunta extends Application {
 
     Stage window;
@@ -27,6 +30,29 @@ public class Huvitoimikunta extends Application {
             e.consume();
             closeProgram();
         });
+
+//      Getting current dayname and passing text to labelTwo accordingly /////////
+        LocalDate localDate = LocalDate.now();
+        java.time.DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+
+        String textForDay = "";
+        if (dayOfWeek.equals(DayOfWeek.SUNDAY)) {
+            textForDay = "#krapulaSunnuntai";
+        } else if (dayOfWeek.equals(DayOfWeek.MONDAY)) {
+            textForDay = "#wonderMonday";
+        } else if (dayOfWeek.equals(DayOfWeek.TUESDAY)) {
+            textForDay = "#terribleTuesday";
+        } else if (dayOfWeek.equals(DayOfWeek.WEDNESDAY)) {
+            textForDay = "#ketteraKeskiviikko";
+        } else if (dayOfWeek.equals(DayOfWeek.THURSDAY)) {
+            textForDay = "#terrificThursday";
+        } else if (dayOfWeek.equals(DayOfWeek.FRIDAY)) {
+            textForDay = "#tanssiPerjantai";
+        } else if (dayOfWeek.equals(DayOfWeek.SATURDAY)) {
+            textForDay = "#saunaLauantai";
+        } else {
+            textForDay = "Noh, mitäs ihmettä?";
+        }
 
         Button buttonClose = new Button("Sulje ohojelma!");
         buttonClose.setOnAction(e -> closeProgram());
@@ -46,7 +72,8 @@ public class Huvitoimikunta extends Application {
         buttonTwo.setOnAction(e -> window.setScene(sceneOne));
         buttonTwo.setRotate(2);
         buttonTwo.setTranslateX(20);
-        Label labelTwo = new Label("Sehän on #wonderMonday");
+        Label labelTwo = new Label();
+        labelTwo.setText("Sehän on " + textForDay);
         labelTwo.setFont(new Font("Cambria", 30));
         labelTwo.setRotate(-5);
 
